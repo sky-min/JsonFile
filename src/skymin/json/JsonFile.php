@@ -14,7 +14,7 @@ use const JSON_UNESCAPED_UNICODE;
 
 final class JsonFile{
 
-	public array $data
+	public array $data;
 
 	public function __construct(
 		private string $fileName,
