@@ -14,17 +14,16 @@ use const JSON_UNESCAPED_UNICODE;
 
 final class JsonFile{
 
-	public array $data;
-
 	public function __construct(
 		private string $fileName,
-		array $default = []
+		public array &$data
 	){
-		$this->data = file_exists($this->fileName) ? json_decode(file_get_contents($this->fileName), true) : $default;
+		if(file_exists($this->fileName)){
+			$this->data = json_decode(file_get_contents($this->fileName), true);
+		}
 	}
 
 	public function save() :void{
 		file_put_contents($this->fileName, json_encode($this->data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
 	}
-	
 }
