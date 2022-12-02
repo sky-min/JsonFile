@@ -16,10 +16,11 @@ final class JsonFile{
 
 	public function __construct(
 		private string $fileName,
-		public array &$data
+		public array|JsonObject &$data
 	){
 		if(file_exists($this->fileName)){
-			$this->data = json_decode(file_get_contents($this->fileName), true);
+			$decode = json_decode(file_get_contents($this->fileName), true);
+			$this->data = $this->data instanceof JsonObject ? $this->data::jsonDeserialize($decode) : $decode;
 		}
 	}
 
